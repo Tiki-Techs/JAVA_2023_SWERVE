@@ -8,14 +8,15 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants.swerveConstants;
 
 
 public class Robot extends TimedRobot {
-  private final XboxController m_controller = new XboxController(0);
+  private final XboxController m_controller = new XboxController(2);
   private final Drivetrain m_swerve = new Drivetrain();
-  private final westCoastDrivetrain m_westCoast = new westCoastDrivetrain();
+  //private final westCoastDrivetrain m_westCoast = new westCoastDrivetrain();
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
@@ -23,9 +24,9 @@ public class Robot extends TimedRobot {
   private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
 
   public Robot(){
-    m_westCoast.setDefaultCommand(
-       new RunCommand(
-         () -> m_westCoast.arcadeDrive(m_controller.getLeftY(), -m_controller.getRightX()), m_westCoast));
+    // m_westCoast.setDefaultCommand(
+    //    new RunCommand(
+    //      () -> m_westCoast.arcadeDrive(m_controller.getLeftY(), -m_controller.getRightX()), m_westCoast));
   }
 
   @Override
@@ -37,7 +38,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveWithJoystick(true);
-    
+    //SmartDashboard.putNumber();
   }
 
   private void driveWithJoystick(boolean fieldRelative) {

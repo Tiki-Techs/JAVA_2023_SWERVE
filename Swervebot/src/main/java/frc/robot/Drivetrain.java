@@ -11,10 +11,12 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.swerveConstants;
 
 /** Represents a swerve drive style drivetrain. */
-public class Drivetrain {
+public class Drivetrain extends SubsystemBase{
 
   private final Translation2d m_frontLeftLocation = new Translation2d(swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS, swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS);
   private final Translation2d m_frontRightLocation = new Translation2d(swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS, -swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS);
@@ -79,5 +81,12 @@ public class Drivetrain {
           m_backLeft.getPosition(),
           m_backRight.getPosition()
         });
+  }
+
+  @Override
+  public void periodic(){
+
+         SmartDashboard.putNumber("Front left rotation", m_frontLeft.getPosition().angle.getDegrees());
+         SmartDashboard.putNumber("Front left distance", m_frontLeft.getPosition().distanceMeters);
   }
 }
