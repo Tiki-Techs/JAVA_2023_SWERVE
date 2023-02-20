@@ -14,7 +14,7 @@ import frc.robot.Constants.swerveConstants;
 
 
 public class Robot extends TimedRobot {
-  private final XboxController m_controller = new XboxController(2);
+  private final XboxController m_controller = new XboxController(0);
   private final Drivetrain m_swerve = new Drivetrain();
   //private final westCoastDrivetrain m_westCoast = new westCoastDrivetrain();
 
@@ -32,13 +32,17 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     driveWithJoystick(false);
-    m_swerve.updateOdometry();
+   // m_swerve.updateOdometry();
   }
 
   @Override
   public void teleopPeriodic() {
     driveWithJoystick(true);
     //SmartDashboard.putNumber();
+  }
+  @Override
+  public void teleopInit(){
+    m_swerve.reset();
   }
 
   private void driveWithJoystick(boolean fieldRelative) {

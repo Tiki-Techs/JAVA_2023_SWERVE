@@ -23,11 +23,11 @@ public class Drivetrain extends SubsystemBase{
   private final Translation2d m_backLeftLocation = new Translation2d(-swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS, swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS);
   private final Translation2d m_backRightLocation = new Translation2d(-swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS, -swerveConstants.MOTOR_DISTANCE_FROM_CENTER_METERS);
 
-  private final SwerveModule m_frontLeft = new SwerveModule(swerveConstants.frontLeftDriveMotor, swerveConstants.frontLeftTurningMotor, swerveConstants.frontLeftTurnEncoder.getFirst(), swerveConstants.frontLeftTurnEncoder.getSecond());
-  private final SwerveModule m_frontRight = new SwerveModule(swerveConstants.frontRightDriveMotor, swerveConstants.frontRightTurningMotor, swerveConstants.frontRightTurnEncoder.getFirst(), swerveConstants.frontRightTurnEncoder.getSecond());
+  private final SwerveModule m_frontLeft = new SwerveModule(swerveConstants.frontLeftDriveMotor, swerveConstants.frontLeftTurningMotor, swerveConstants.frontLeftTurnEncoder.getFirst(), swerveConstants.frontLeftTurnEncoder.getSecond(), true, true);
+  private final SwerveModule m_frontRight = new SwerveModule(swerveConstants.frontRightDriveMotor, swerveConstants.frontRightTurningMotor, swerveConstants.frontRightTurnEncoder.getFirst(), swerveConstants.frontRightTurnEncoder.getSecond(), true, true);
 
-  private final SwerveModule m_backLeft = new SwerveModule(swerveConstants.backLeftDriveMotor, swerveConstants.backLeftTurningMotor, swerveConstants.backLeftTurnEncoder.getFirst(), swerveConstants.backLeftTurnEncoder.getSecond());
-  private final SwerveModule m_backRight = new SwerveModule(swerveConstants.backRightDriveMotor, swerveConstants.backRightTurningMotor, swerveConstants.backRightTurnEncoder.getFirst(), swerveConstants.backRightTurnEncoder.getSecond());
+  private final SwerveModule m_backLeft = new SwerveModule(swerveConstants.backLeftDriveMotor, swerveConstants.backLeftTurningMotor, swerveConstants.backLeftTurnEncoder.getFirst(), swerveConstants.backLeftTurnEncoder.getSecond(), false, true);
+  private final SwerveModule m_backRight = new SwerveModule(swerveConstants.backRightDriveMotor, swerveConstants.backRightTurningMotor, swerveConstants.backRightTurnEncoder.getFirst(), swerveConstants.backRightTurnEncoder.getSecond(), false, true);
 
   private final AHRS m_gyro = new AHRS();
 
@@ -48,8 +48,19 @@ public class Drivetrain extends SubsystemBase{
 
   public Drivetrain() {
     m_gyro.reset();
+    m_frontLeft.resetEncoders();
+    m_frontRight.resetEncoders();
+    m_backLeft.resetEncoders();
+    m_backRight.resetEncoders();
   }
 
+  public void reset(){
+    m_gyro.reset();
+    m_frontLeft.resetEncoders();
+    m_frontRight.resetEncoders();
+    m_backLeft.resetEncoders();
+    m_backRight.resetEncoders();
+  }
   /**
    * Method to drive the robot using joystick info.
    *
@@ -84,9 +95,12 @@ public class Drivetrain extends SubsystemBase{
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
 
          SmartDashboard.putNumber("Front left rotation", m_frontLeft.getPosition().angle.getDegrees());
          SmartDashboard.putNumber("Front left distance", m_frontLeft.getPosition().distanceMeters);
+         SmartDashboard.putNumber("Front right rotation", m_frontRight.getPosition().angle.getDegrees());
+         SmartDashboard.putNumber("back left rotation", m_backLeft.getPosition().angle.getDegrees());
+         SmartDashboard.putNumber("Back right rotation", m_backRight.getPosition().angle.getDegrees());
   }
 }
