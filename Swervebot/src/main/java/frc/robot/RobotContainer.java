@@ -9,6 +9,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,6 +31,9 @@ public class RobotContainer {
   public static final CommandXboxController m_mechController = 
     new CommandXboxController(Constants.MechController);
 
+  public static GenericHID m_buttonBoard =
+    new GenericHID(Constants.ButtonBoard);
+
   public RobotContainer() {
     // Configure the trigger bindings
     m_Drivebase.setDefaultCommand(
@@ -37,9 +41,6 @@ public class RobotContainer {
          () -> m_Drivebase.DoDrivingFR(m_driverController.getLeftY(), -m_driverController.getRightX()), m_Drivebase));
     
          m_Turret.setDefaultCommand(new TurretTurner(m_Turret));
-
-    m_Arm.setDefaultCommand(
-      new RunCommand(() -> m_Arm.setArmSpeeds(-m_mechController.getLeftY()), m_Arm));
 
          configureBindings();
   }

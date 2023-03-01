@@ -17,6 +17,8 @@ import edu.wpi.first.math.Pair;
 public final class Constants {
   public static final int DriverController = 0;
   public static final int MechController = 1;
+  public static final int ButtonBoard = 2;
+
   public static class DrivebaseConstants {
     public static final int FL_DRIVE = 1;
     public static final int FL_STEER = 2;
@@ -40,5 +42,12 @@ public final class Constants {
   public static final class armConstants {
     public static final int shoulderMotor1 = 10;
     public static final int shoulderMotor2 = 11;
+    public static final int elbowMotor1 = 12;
+    public static final int elbowMotor2 = 13;
+    public static final int wristMotor = 14;
+
+    public static final Pair<Integer, Integer> shoulderEncoder = new Pair<>(9, 8);
+    public static final Pair<Integer, Integer> elbowEncoder = new Pair<>(9, 8);
+    public static final Pair<Integer, Integer> wristEncoder = new Pair<>(9, 8);
   }
 }
