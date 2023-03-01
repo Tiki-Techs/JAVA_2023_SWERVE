@@ -13,14 +13,20 @@ import frc.robot.Constants.TurretConstants;
 public class Turret extends SubsystemBase {
 
     public CANSparkMax m_turner = new CANSparkMax(TurretConstants.turnerMotor, MotorType.kBrushless);
-    public Encoder enc = new Encoder(0,1);
+    public static Encoder m_turretEncoder = new Encoder(TurretConstants.turretEncoder.getFirst(),TurretConstants.turretEncoder.getSecond());
 
     public void TurnTurret(double speed) {
-        m_turner.set(speed);
+       if((speed < 0 && m_turretEncoder.getDistance() <= 6400) || (speed > 0 && m_turretEncoder.getDistance() >= -6400)) {
+            m_turner.set(speed);
+       }
+       else {
+        m_turner.set(0);
+       }
     }
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("Turret Encoder", enc.getDistance());
+        SmartDashboard.putNumber("Turret Encoder", m_turretEncoder.getDistance());
+        
     }
 }

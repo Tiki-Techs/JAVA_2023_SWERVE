@@ -14,13 +14,13 @@ public class TurretTurner extends CommandBase{
 
     @Override 
     public void execute() {
-        if(RobotContainer.m_driverController.getLeftTriggerAxis() > 0.05)
+        if(RobotContainer.m_mechController.getLeftTriggerAxis() > 0.05)
         {
-            m_Turret.TurnTurret(-RobotContainer.m_driverController.getLeftTriggerAxis());
+            m_Turret.TurnTurret(RobotContainer.m_mechController.getLeftTriggerAxis());
         }
-        else if(RobotContainer.m_driverController.getRightTriggerAxis() > 0.05)
+        else if(RobotContainer.m_mechController.getRightTriggerAxis() > 0.05)
         {
-            m_Turret.TurnTurret(RobotContainer.m_driverController.getRightTriggerAxis());
+            m_Turret.TurnTurret(-RobotContainer.m_mechController.getRightTriggerAxis());
         }
         else
         {

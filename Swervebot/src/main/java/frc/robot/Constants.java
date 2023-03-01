@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.Pair;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,6 +16,7 @@ package frc.robot;
  */
 public final class Constants {
   public static final int DriverController = 0;
+  public static final int MechController = 1;
   public static class DrivebaseConstants {
     public static final int FL_DRIVE = 1;
     public static final int FL_STEER = 2;
@@ -31,5 +34,11 @@ public final class Constants {
   public static final class TurretConstants {
     //public static final int EncoderPort = 0;
     public static final int turnerMotor = 9;
+    public static final Pair<Integer, Integer> turretEncoder = new Pair<>(9, 8);
+  }
+
+  public static final class armConstants {
+    public static final int shoulderMotor1 = 10;
+    public static final int shoulderMotor2 = 11;
   }
 }

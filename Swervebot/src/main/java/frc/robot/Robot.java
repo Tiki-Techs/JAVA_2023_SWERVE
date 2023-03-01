@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Drivebase;
+import frc.robot.subsystems.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -77,6 +79,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    Drivebase.BL_steer.setSelectedSensorPosition(0);
+    Drivebase.BR_steer.setSelectedSensorPosition(0);
+    Drivebase.FL_steer.setSelectedSensorPosition(0);
+    Drivebase.FR_steer.setSelectedSensorPosition(0);
+
+    Turret.m_turretEncoder.reset();
   }
 
   /** This function is called periodically during operator control. */

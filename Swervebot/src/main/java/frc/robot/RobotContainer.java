@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.TurretTurner;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -13,16 +14,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivebase m_Drivebase = new Drivebase();
   private final Turret m_Turret = new Turret();
+  private final Arm m_Arm = new Arm();
 
   
 
@@ -31,7 +27,9 @@ public class RobotContainer {
   public static final CommandXboxController m_driverController =
       new CommandXboxController(Constants.DriverController);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public static final CommandXboxController m_mechController = 
+    new CommandXboxController(Constants.MechController);
+
   public RobotContainer() {
     // Configure the trigger bindings
     m_Drivebase.setDefaultCommand(
@@ -39,6 +37,10 @@ public class RobotContainer {
          () -> m_Drivebase.DoDrivingFR(m_driverController.getLeftY(), -m_driverController.getRightX()), m_Drivebase));
     
          m_Turret.setDefaultCommand(new TurretTurner(m_Turret));
+
+    m_Arm.setDefaultCommand(
+      new RunCommand(() -> m_Arm.setArmSpeeds(-m_mechController.getLeftY()), m_Arm));
+
          configureBindings();
   }
 
