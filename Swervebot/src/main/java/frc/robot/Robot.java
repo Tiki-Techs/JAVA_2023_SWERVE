@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Turret;
 
@@ -79,6 +80,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    Arm.shoulderEncoder.reset();
+    Arm.elbowEncoder.reset();
 
     Drivebase.BL_steer.setSelectedSensorPosition(0);
     Drivebase.BR_steer.setSelectedSensorPosition(0);
