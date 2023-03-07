@@ -47,11 +47,11 @@ public class SwerveJoystickCmd extends CommandBase {
   @Override
   public void execute() {
     double yAxis = driver.getLeftY();
-    double xAxis = -driver.getLeftX();
+    double xAxis = driver.getLeftX();
     double rotAxis = -driver.getRightX();
     
-    translation = new Translation2d(yAxis, xAxis);
-    rotation =  driver.getRightX() * 0.1;
+    translation = new Translation2d(yAxis, xAxis).times(10);
+    rotation =  driver.getRightX()* 0.33;
     SmartDashboard.putNumber("ROTATIONNNNN", rotation);
     swerve.drive(translation, rotation, fieldRelative);
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){

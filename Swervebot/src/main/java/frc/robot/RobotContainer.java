@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.TurretTurner;
+import frc.robot.commands.WristTurner;
 import frc.robot.commands.ArmPositions.HighScore;
 import frc.robot.commands.ArmPositions.Hold;
 import frc.robot.subsystems.Arm;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem m_Drivebase = new SwerveSubsystem();
+  public static final SwerveSubsystem m_Drivebase = new SwerveSubsystem();
   private final Turret m_Turret = new Turret();
   public static final Arm m_Arm = new Arm();
   public final Intake m_Intake = new Intake();
@@ -47,13 +48,13 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Configure the trigger bindings
-    m_Drivebase.setDefaultCommand(new SwerveJoystickCmd(m_Drivebase, m_driverController, false));
+    m_Drivebase.setDefaultCommand(new SwerveJoystickCmd(m_Drivebase, m_driverController, true));
 
     m_Arm.setDefaultCommand(new DefaultArm(m_Arm));
     
     m_Turret.setDefaultCommand(new TurretTurner(m_Turret));
 
-    m_Wrist.setDefaultCommand(new RunCommand(() -> m_Wrist.setWristSpeed(0, false), m_Wrist));
+    m_Wrist.setDefaultCommand(new WristTurner(m_Wrist));
 
     
 
@@ -91,11 +92,11 @@ public class RobotContainer {
   // new Trigger(m_mechController.getLeftTriggerAxis(), 4)
   // .onTrue(new InstantCommand(() -> m_Arm.setWristSpeed(10, true)));
 
-  new JoystickButton(m_mechController.getHID(), 5)
-  .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, false), m_Wrist));
+  // new JoystickButton(m_mechController.getHID(), 5)
+  // .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, false), m_Wrist));
 
-  new JoystickButton(m_mechController.getHID(), 6)
-  .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, true), m_Wrist));
+  // new JoystickButton(m_mechController.getHID(), 6)
+  // .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, true), m_Wrist));
   }
 
 

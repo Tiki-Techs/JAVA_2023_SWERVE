@@ -57,7 +57,7 @@ public class DefaultArm extends CommandBase{
         //   m_Arm.setElbowSpeed(0);
         // }
         // else{
-          m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY()/5);
+          m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY());
         //}
       }
       
@@ -68,10 +68,10 @@ public class DefaultArm extends CommandBase{
        // m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY()/5);//-RobotContainer.m_Arm.elbowPID.calculate(Arm.elbowEncoder.getAbsolutePosition(), elbowSetPoint));
         //elbowSetPoint = elbowSetPoint + RobotContainer.m_mechController.getRightY()/15;
         //m_Arm.setElbowSpeed(RobotContainer.m_Arm.elbowPID.calculate(Arm.elbowEncoder.getAbsolutePosition(), elbowSetPoint));
-        m_Arm.setShoulderSpeed(RobotContainer.m_mechController.getLeftY()/5); // runs the shoulder off of the controller
+        m_Arm.setShoulderSpeed(RobotContainer.m_mechController.getLeftY()/2); // runs the shoulder off of the controller
        // elbowDefaultCommand(.325);
         //SmartDashboard.putNumber("Elbow PID", m_Arm.elbowPID.calculate(Arm.elbowEncoder.getAbsolutePosition(), elbowSetPoint));
-        m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY()/4); // runs the elbow off of the controller
+        m_Arm.setElbowSpeed(-RobotContainer.m_mechController.getRightY()/2); // runs the elbow off of the controller
         //m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY()/5);
 
         

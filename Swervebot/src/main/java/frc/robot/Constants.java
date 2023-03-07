@@ -145,8 +145,8 @@ public final class Constants {
     // public static final int elbowEncoder = 6;
     // public static final int wristEncoder = 2;
 
-    //public static final int elbowLimitSwitch = 6;
-   // public static final int shoulderLimitSwitch = 2;
+    public static final int elbowLimitSwitch = 22;
+    public static final int shoulderLimitSwitch = 23;
   
   }
 

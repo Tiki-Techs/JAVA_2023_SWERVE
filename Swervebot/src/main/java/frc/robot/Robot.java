@@ -82,12 +82,7 @@ public class Robot extends TimedRobot {
     }
     Arm.shoulderEncoder.reset();
     Arm.elbowEncoder.reset();
-
-    Drivebase.BL_steer.setSelectedSensorPosition(0);
-    Drivebase.BR_steer.setSelectedSensorPosition(0);
-    Drivebase.FL_steer.setSelectedSensorPosition(0);
-    Drivebase.FR_steer.setSelectedSensorPosition(0);
-
+    RobotContainer.m_Drivebase.zeroModules();
     Turret.m_turretEncoder.reset();
   }
 

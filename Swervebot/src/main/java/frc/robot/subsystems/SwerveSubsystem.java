@@ -31,16 +31,16 @@ import frc.robot.Constants.chassisConstants;
 import frc.robot.Constants.chassisSetUp;
 
 public class SwerveSubsystem extends SubsystemBase {
-  private final SwerveModule frontLeft = new SwerveModule(chassisSetUp.fLeftDriveMotorPort, chassisSetUp.isFrontLeftDriveMotorReverse, 
+    public final SwerveModule frontLeft = new SwerveModule(chassisSetUp.fLeftDriveMotorPort, chassisSetUp.isFrontLeftDriveMotorReverse, 
   chassisSetUp.fLeftTurnMotorPort, chassisSetUp.isFrontLeftTurnMotorReverse, chassisSetUp.fLeftAbsoluteEncoder, chassisSetUp.frontLAngle,chassisSetUp.frontLKP, chassisSetUp.frontLKI, chassisSetUp.frontLKD);
 
-  private final SwerveModule frontRight = new SwerveModule(chassisSetUp.fRightDriveMotorPort, chassisSetUp.isFrontRightDriveMotorReverse, 
+  public final SwerveModule frontRight = new SwerveModule(chassisSetUp.fRightDriveMotorPort, chassisSetUp.isFrontRightDriveMotorReverse, 
   chassisSetUp.fRightTurnMotorPort, chassisSetUp.isFrontRightTurnMotorReverse, chassisSetUp.fRightAbsoluteEncoder, chassisSetUp.frontRAngle, chassisSetUp.frontRKP, chassisSetUp.frontRKI, chassisSetUp.frontRKD);
 
-  private final SwerveModule backLeft = new SwerveModule(chassisSetUp.bLeftDriveMotorPort, chassisSetUp.isBackLeftDriveMotorReverse, 
+  public final SwerveModule backLeft = new SwerveModule(chassisSetUp.bLeftDriveMotorPort, chassisSetUp.isBackLeftDriveMotorReverse, 
   chassisSetUp.bLeftTurnMotorPort, chassisSetUp.isBackLeftTurnMotorReverse, chassisSetUp.bLeftAbsoluteEncoder, chassisSetUp.backLAngle, chassisSetUp.backLKP, chassisSetUp.backLKI, chassisSetUp.backLKD);
 
-  private final SwerveModule backRight = new SwerveModule(chassisSetUp.bRightDriveMotorPort, chassisSetUp.isBackRightDriveMotorReverse, 
+  public final SwerveModule backRight = new SwerveModule(chassisSetUp.bRightDriveMotorPort, chassisSetUp.isBackRightDriveMotorReverse, 
   chassisSetUp.bRightTurnMotorPort, chassisSetUp.isBackRightTurnMotorReverse, chassisSetUp.bRightAbsoluteEncoder, chassisSetUp.backRAngle, chassisSetUp.backRKP, chassisSetUp.backRKI, chassisSetUp.backRKD);
 
   private AHRS gyro = new AHRS();
@@ -113,10 +113,10 @@ public class SwerveSubsystem extends SubsystemBase {
   }    
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, chassisConstants.maxSpeedMPS);
-    backLeft.setDesiredState(desiredStates[0]);
-    backRight.setDesiredState(desiredStates[1]);
-    frontLeft.setDesiredState(desiredStates[2]);
-    frontRight.setDesiredState(desiredStates[3]);
+    backLeft.setDesiredState(desiredStates[2]);
+    backRight.setDesiredState(desiredStates[3]);
+    frontLeft.setDesiredState(desiredStates[0]);
+    frontRight.setDesiredState(desiredStates[1]);
 }
 public SwerveModulePosition[] getModulePositions(){
   SwerveModulePosition[] positions = new SwerveModulePosition[4];
@@ -136,7 +136,7 @@ public void zeroModules(){
   public Rotation2d getYaw() {
   
    var yaw = gyro.getYaw();
-    return (chassisSetUp.invertedGyro) ? Rotation2d.fromDegrees(360 - yaw) : Rotation2d.fromDegrees(yaw);
+    return (!chassisSetUp.invertedGyro) ? Rotation2d.fromDegrees(360 - yaw) : Rotation2d.fromDegrees(yaw);
 }
 public static Trajectory generateTrajectory (String trajectory){
 

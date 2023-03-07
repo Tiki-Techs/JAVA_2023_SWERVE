@@ -26,8 +26,8 @@ public class Arm extends SubsystemBase{
     public PIDController elbowPID = new PIDController(.5, 0, 0.0);
     public PIDController shoulderPID = new PIDController(0, 0, 0);
 
-    // public DigitalInput shoulderLimit = new DigitalInput(armConstants.shoulderLimitSwitch);
-    // public DigitalInput elbowLimit = new DigitalInput(armConstants.elbowLimitSwitch);
+    public DigitalInput shoulderLimit = new DigitalInput(armConstants.shoulderLimitSwitch);
+    public DigitalInput elbowLimit = new DigitalInput(armConstants.elbowLimitSwitch);
     
     ArmPosition currentArmPosition;
 
@@ -39,12 +39,24 @@ public class Arm extends SubsystemBase{
 
     // setting shoulder speed
     public void setShoulderSpeed(double speed){
-        shoulderMotor1.set(speed);
+        if(shoulderLimit.get() == false && speed > 0) {
+            shoulderMotor1.set(0);
+        }
+        else 
+        {
+            shoulderMotor1.set(speed);
+        }
     }
 
     // setting elbow speed
     public void setElbowSpeed(double speed){
-        elbowMotor1.set(speed);
+        if(elbowLimit.get() == false && speed < 0) {
+            elbowMotor1.set(0);
+        }
+        else 
+        {
+            elbowMotor1.set(speed);
+        }
 
     }
 
@@ -77,8 +89,8 @@ public class Arm extends SubsystemBase{
     public void periodic(){
         SmartDashboard.putNumber("shoulder encoder", shoulderEncoder.getDistance());
         SmartDashboard.putNumber("elbow encoder", elbowEncoder.getDistance());
-       // SmartDashboard.putBoolean("shoulder limit switch", shoulderLimit.get());
-       // SmartDashboard.putBoolean("elbow limit switch", elbowLimit.get());
+       SmartDashboard.putBoolean("shoulder limit switch", shoulderLimit.get());
+        SmartDashboard.putBoolean("elbow limit switch", elbowLimit.get());
         SmartDashboard.putNumber("shoulder motor output", shoulderMotor1.getAppliedOutput());
     }
 
