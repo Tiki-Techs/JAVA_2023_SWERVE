@@ -48,7 +48,9 @@ public class DefaultArm extends CommandBase{
         //   m_Arm.setShoulderSpeed(0);
         // }
         // else{
-          m_Arm.setShoulderSpeed(RobotContainer.m_mechController.getLeftY()/2);
+          double stickValue = RobotContainer.m_mechController.getLeftY();
+          double m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          m_Arm.setShoulderSpeed(m_setSpeed);
         //}
       }
 
@@ -57,7 +59,9 @@ public class DefaultArm extends CommandBase{
         //   m_Arm.setElbowSpeed(0);
         // }
         // else{
-          m_Arm.setElbowSpeed(RobotContainer.m_mechController.getRightY()/2);
+          double stickValue = RobotContainer.m_mechController.getLeftY();
+          double m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          m_Arm.setElbowSpeed(m_setSpeed/2);
         //}
       }
       
