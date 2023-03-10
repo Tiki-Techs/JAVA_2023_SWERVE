@@ -14,6 +14,7 @@ import frc.robot.Constants.armConstants;
 import frc.robot.commands.ArmPosition;
 
 public class Arm extends SubsystemBase{
+    
     public CANSparkMax shoulderMotor1 = new CANSparkMax(armConstants.shoulderMotor1, MotorType.kBrushless);
     private CANSparkMax shoulderMotor2 = new CANSparkMax(armConstants.shoulderMotor2, MotorType.kBrushless);
     public CANSparkMax elbowMotor1 = new CANSparkMax(armConstants.elbowMotor1, MotorType.kBrushless);

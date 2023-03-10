@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.DefaultArm;
+import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.TurretTurner;
 import frc.robot.commands.WristTurner;
@@ -32,7 +33,7 @@ public class RobotContainer {
   public static final Arm m_Arm = new Arm();
   public final Intake m_Intake = new Intake();
   public final Wrist m_Wrist = new Wrist();
-
+  private final Command m_SimpleAuto = new SimpleAuto(m_Drivebase, true);
   
 
 
@@ -98,6 +99,16 @@ public class RobotContainer {
   // new JoystickButton(m_mechController.getHID(), 6)
   // .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, true), m_Wrist));
   }
+
+  public Command getAutoCommand() {
+    return m_SimpleAuto;
+  }
+
+//public void SimpleAuto () {
+  
+  // public Command getAutoCommand() {
+  //   return m_SimpleAutoCommand.getSimpleAuto();
+  // }
 
 
  
