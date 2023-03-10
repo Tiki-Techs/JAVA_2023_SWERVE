@@ -56,7 +56,7 @@ public final class Constants {
 
     public static double maxSpeedMPS = 6.5;
     public static double maxTurnSpeed = 1.0;
-    
+        
     //Distance between the front and back wheels in inches
     public static final double wheelBase = (25);
     //Distance between left and right wheels in inches
