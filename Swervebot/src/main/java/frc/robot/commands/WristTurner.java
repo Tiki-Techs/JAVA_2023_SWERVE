@@ -17,10 +17,10 @@ public class WristTurner extends CommandBase{
     @Override
     public void execute() {
         if(RobotContainer.m_mechController.getLeftTriggerAxis() > 0.05) {
-            wrist.setWristSpeed(RobotContainer.m_mechController.getLeftTriggerAxis()/8, false);
+            wrist.setWristSpeed(RobotContainer.m_mechController.getLeftTriggerAxis()/2, false);
         }
         else if(RobotContainer.m_mechController.getRightTriggerAxis() > 0.05) {
-            wrist.setWristSpeed(RobotContainer.m_mechController.getRightTriggerAxis()/8, true);
+            wrist.setWristSpeed(RobotContainer.m_mechController.getRightTriggerAxis()/2, true);
         }
         else {
             wrist.setWristSpeed(0, false);

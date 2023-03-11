@@ -5,7 +5,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
+//import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,7 +22,6 @@ public class SimpleAuto extends CommandBase {
   private boolean overrideJS;
   
   private SwerveSubsystem swerve;
-  // private CommandXboxController driver;
   private SlewRateLimiter yLim = new SlewRateLimiter(1);
   private SlewRateLimiter xLim = new SlewRateLimiter(1);
   private SlewRateLimiter rotLim = new SlewRateLimiter(3);
@@ -43,35 +42,37 @@ public class SimpleAuto extends CommandBase {
 
     //this.driver = driver;
     this.fieldRelative = fieldRelative;
+    
   }
 
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_timer.reset();
+    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double yAxis = -0.5;
+    SmartDashboard.putNumber("timer", m_timer.get());
+    double yAxis = 1.0;
     double xAxis = 0.0;
     double rotAxis = 0.0;
     double driveTime = 2.0; // drive time is duration of auto time
-    SmartDashboard.putNumber("Timer", m_timer.get());
-    m_timer.start();
-    translation = new Translation2d(yAxis, xAxis).times(10);
-    // SmartDashboard.putNumber("ROTATIONNNNN", rotation);
-    //
+
+    
+    Translation2d translation = new Translation2d(yAxis, xAxis);
+    Translation2d stop = new Translation2d(0.0,0.0);
+    
     if (m_timer.get() < driveTime) {
         swerve.drive(translation, rotAxis, fieldRelative);
     }
     else {
-      Translation2d stop = new Translation2d(0.0,0.0);
         swerve.drive(stop, rotAxis, fieldRelative);
-        m_timer.stop();    }
-    
-    // swerve.drive(translation, rotation, fieldRelative);
+        m_timer.stop();
+    }
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){
     //   swerve.zeroModules();
     //   swerve.stopModules();
