@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    RobotContainer.m_Drivebase.zeroModules();
     m_autonomousCommand = m_robotContainer.getAutoCommand();
 
     // schedule the autonomous command (example)
@@ -82,7 +83,7 @@ public class Robot extends TimedRobot {
     }
     Arm.shoulderEncoder.reset();
     Arm.elbowEncoder.reset();
-    RobotContainer.m_Drivebase.zeroModules();
+    //RobotContainer.m_Drivebase.zeroModules();
     Turret.m_turretEncoder.reset();
   }
 

@@ -1,9 +1,12 @@
 package frc.robot.commands;
 
+import java.lang.constant.ConstantDesc;
+
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.armConstants;
 import frc.robot.subsystems.Arm;
@@ -48,8 +51,14 @@ public class DefaultArm extends CommandBase{
         //   m_Arm.setShoulderSpeed(0);
         // }
         // else{
+          double m_setSpeed;
           double stickValue = RobotContainer.m_mechController.getLeftY();
-          double m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          if (stickValue < Constants.deadBand && stickValue > Constants.deadBand*(-1.0)) {
+            m_setSpeed = 0;
+          }
+          else {
+            m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          }
           m_Arm.setShoulderSpeed(m_setSpeed);
         //}
       }
@@ -59,12 +68,16 @@ public class DefaultArm extends CommandBase{
         //   m_Arm.setElbowSpeed(0);
         // }
         // else{
-          double stickValue = RobotContainer.m_mechController.getLeftY();
-          double m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          double m_setSpeed;
+          double stickValue = RobotContainer.m_mechController.getRightY();
+          if (stickValue < Constants.deadBand && stickValue > Constants.deadBand*(-1.0)) {
+            m_setSpeed = 0;
+          }
+          else {
+            m_setSpeed = 0.4*stickValue + 0.6* Math.pow(stickValue, 3);
+          }
           m_Arm.setElbowSpeed(m_setSpeed/2);
-        //}
-      }
-      
+        }
 
       // any commands that are running atm
       @Override

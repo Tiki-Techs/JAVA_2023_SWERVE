@@ -24,6 +24,7 @@ public final class Constants {
   public static final int DriverController = 0;
   public static final int MechController = 1;
   public static final int ButtonBoard = 2;
+  public static final double deadBand = 0.05; 
 
   public static final int PCH_ID = 18;
 
