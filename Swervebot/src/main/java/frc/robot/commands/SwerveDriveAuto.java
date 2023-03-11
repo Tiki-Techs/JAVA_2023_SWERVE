@@ -58,7 +58,7 @@ public class SwerveDriveAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
+    fieldRelative = true;
     //double yAxis = driver.getLeftY();
     //double xAxis = driver.getLeftX();
     double rotAxis = 0.0;
@@ -66,17 +66,19 @@ public class SwerveDriveAuto extends CommandBase {
     translation = new Translation2d(yAxis, xAxis).times(100);
     Translation2d stop = new Translation2d(0.0,0.0);
 
-    swerve.drive(translation, rotation, true);
+    //swerve.drive(translation, rotation, true);
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){
     //   swerve.zeroModules();
     //   swerve.stopModules();
     // }
     if (m_timer.get() < driveTime) {
       swerve.drive(translation, rotAxis, fieldRelative);
-  }
-  else {
+   }
+    else {
       swerve.drive(stop, rotAxis, fieldRelative);
-      m_timer.stop();
+      //m_timer.stop();
+      //m_timer.reset();
+      isFinished();
   }
   }
 
@@ -87,6 +89,6 @@ public class SwerveDriveAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -4,11 +4,13 @@
 
 package frc.robot;
 
+import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.TurretTurner;
 import frc.robot.commands.WristTurner;
+import frc.robot.commands.shimSham;
 import frc.robot.commands.ArmPositions.HighScore;
 import frc.robot.commands.ArmPositions.Hold;
 import frc.robot.subsystems.Arm;
@@ -34,7 +36,9 @@ public class RobotContainer {
   public final Intake m_Intake = new Intake();
   public final Wrist m_Wrist = new Wrist();
   private final Command m_SimpleAuto = new SimpleAuto(m_Drivebase, true);
-  
+  private final Command m_ComplexAuto = new ComplexAuto(m_Drivebase);
+  private final Command m_shimSham = new shimSham(m_Drivebase, true);
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
