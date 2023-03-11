@@ -55,7 +55,7 @@ public final class Constants {
     public static final double wheelDiameter = Units.inchesToMeters(4);
     public static double circumference = wheelDiameter * Math.PI;
 
-    public static double maxSpeedMPS = 6.5;
+    public static double maxSpeedMPS = 8.0;
     public static double maxTurnSpeed = 1.0;
     
     //Distance between the front and back wheels in inches
