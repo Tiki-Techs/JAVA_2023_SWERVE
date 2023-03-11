@@ -57,13 +57,13 @@ public class SimpleAuto extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("timer", m_timer.get());
-    double yAxis = -1.0;
-    double xAxis = 0.0;
+    double autoyAxis = -1.0;
+    double autoxAxis = 0.0;
     double rotAxis = 0.0;
     double driveTime = 5.0; // drive time is duration of auto time
 
     
-    Translation2d translation = new Translation2d(yAxis, xAxis);
+    Translation2d translation = new Translation2d(autoyAxis, autoxAxis);
     Translation2d stop = new Translation2d(0.0,0.0);
     
     if (m_timer.get() < driveTime) {

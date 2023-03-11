@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.chassisConstants;
 import frc.robot.subsystems.SwerveModule;
 import frc.robot.subsystems.SwerveSubsystem;
-
+import frc.robot.Constants;
 /** An example command that uses an example subsystem. */
 public class SwerveJoystickCmd extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -18,7 +18,9 @@ public class SwerveJoystickCmd extends CommandBase {
   private Translation2d translation;
   private boolean fieldRelative;
   private boolean overrideJS;
-  
+  private double m_setSpeed;
+  private double yAxis;
+  private double xAxis;
   private SwerveSubsystem swerve;
   private CommandXboxController driver;
   private SlewRateLimiter yLim = new SlewRateLimiter(1);
@@ -46,8 +48,22 @@ public class SwerveJoystickCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double yAxis = driver.getLeftY();
-    double xAxis = driver.getLeftX();
+    if (driver.getLeftY() < Constants.deadBand && driver.getLeftY() > Constants.deadBand*(-1.0)) {
+      yAxis = 0;
+    }
+    else {
+      yAxis = 0.4*driver.getLeftY() + 0.6* Math.pow(driver.getLeftY(), 3);
+    }
+
+    if (driver.getLeftX() < Constants.deadBand && driver.getLeftX() > Constants.deadBand*(-1.0)) {
+      xAxis = 0;
+    }
+    else {
+      xAxis = 0.4*driver.getLeftX() + 0.6* Math.pow(driver.getLeftX(), 3);
+    }
+
+    //double yAxis = driver.getLeftY();
+    //double xAxis = driver.getLeftX();
     double rotAxis = -driver.getRightX();
     
     translation = new Translation2d(yAxis, xAxis).times(10);
