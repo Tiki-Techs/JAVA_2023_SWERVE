@@ -66,28 +66,32 @@ public class SimpleAuto extends CommandBase {
     double autoyAxis = -7.0;
     double autoxAxis = 0.0;
     double rotAxis = 0.0;
-    double driveTime = 2.5; // drive time is duration of auto time
-
+    double driveTime = 1.8; // drive time is duration of auto time
+    double shoulderTime = 0.2;
+    double elbowTime = 1.2;
+    double waitTime = 1.0;
     
-    Translation2d translation = new Translation2d(autoyAxis, autoxAxis);
+    Translation2d translation = new Translation2d(
+    autoyAxis, autoxAxis);
     Translation2d stop = new Translation2d(0.0,0.0);
-    while (m_timer.get() < 0.3) {
-      arm.setShoulderSpeed(-0.4);
-      arm.setElbowSpeed(-0.4);
+
+    while (m_timer.get() < 0.8) {
+      arm.setShoulderSpeed(-0.5);
+      arm.setElbowSpeed(0.5);
     }
-    intake.extendIntake();
+    
+    arm.setElbowSpeed(0);
     arm.setShoulderSpeed(0.0);
-    arm.setElbowSpeed(0.0);
-    while (m_timer.get() < 1.0) {
+
+    while (m_timer.get() < (1.0)) {
 
     }
-    if (m_timer.get() < driveTime) {
+    while (m_timer.get() < 2.5) {
         swerve.drive(translation, rotAxis, fieldRelative);
     }
-    else {
-        swerve.drive(stop, rotAxis, fieldRelative);
-        m_timer.stop();
-    }
+    swerve.drive(stop, rotAxis, fieldRelative);
+    m_timer.stop();
+    
 
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){
     //   swerve.zeroModules();

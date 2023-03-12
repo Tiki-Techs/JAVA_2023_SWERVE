@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.ComplexAuto;
+import frc.robot.commands.ConeAuto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -40,6 +41,7 @@ public class RobotContainer {
   private final Command m_SimpleAuto = new SimpleAuto(m_Drivebase, m_Arm, m_Intake, true);
   private final Command m_ComplexAuto = new ComplexAuto(m_Drivebase);
   private final Command m_shimSham = new shimSham(m_Drivebase, true);
+  private final Command m_ConeAuto = new ConeAuto(m_Drivebase, m_Arm, m_Intake, false);
 
 
 
