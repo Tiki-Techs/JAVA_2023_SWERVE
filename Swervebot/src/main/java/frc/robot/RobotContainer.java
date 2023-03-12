@@ -19,6 +19,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Wrist;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,7 +37,7 @@ public class RobotContainer {
   public static final Arm m_Arm = new Arm();
   public final Intake m_Intake = new Intake();
   public final Wrist m_Wrist = new Wrist();
-  private final Command m_SimpleAuto = new SimpleAuto(m_Drivebase, true);
+  private final Command m_SimpleAuto = new SimpleAuto(m_Drivebase, m_Arm, m_Intake, true);
   private final Command m_ComplexAuto = new ComplexAuto(m_Drivebase);
   private final Command m_shimSham = new shimSham(m_Drivebase, true);
 
