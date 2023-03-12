@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.Constants.chassisConstants;
 import frc.robot.subsystems.SwerveModule;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.Constants;
+
 /** An example command that uses an example subsystem. */
 public class SwerveJoystickCmd extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -18,7 +19,6 @@ public class SwerveJoystickCmd extends CommandBase {
   private Translation2d translation;
   private boolean fieldRelative;
   private boolean overrideJS;
-  private double m_setSpeed;
   private double yAxis;
   private double xAxis;
   private SwerveSubsystem swerve;
@@ -26,6 +26,8 @@ public class SwerveJoystickCmd extends CommandBase {
   private SlewRateLimiter yLim = new SlewRateLimiter(1);
   private SlewRateLimiter xLim = new SlewRateLimiter(1);
   private SlewRateLimiter rotLim = new SlewRateLimiter(3);
+
+
 
   /**
    * Creates a new ExampleCommand.
@@ -61,12 +63,14 @@ public class SwerveJoystickCmd extends CommandBase {
     else {
       xAxis = 0.4*driver.getLeftX() + 0.6* Math.pow(driver.getLeftX(), 3);
     }
+  
 
-    //double yAxis = driver.getLeftY();
+   
+  //  double yAxis = driver.getLeftY();
     //double xAxis = driver.getLeftX();
-    //double rotAxis = -driver.getRightX();
+    double rotAxis = -driver.getRightX();
     
-    translation = new Translation2d(yAxis, xAxis).times(100);
+    translation = new Translation2d(yAxis, xAxis).times(10);
     rotation =  driver.getRightX()* 0.33;
     SmartDashboard.putNumber("ROTATIONNNNN", rotation);
     swerve.drive(translation, rotation, fieldRelative);
