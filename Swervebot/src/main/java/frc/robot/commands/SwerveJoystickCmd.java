@@ -54,14 +54,14 @@ public class SwerveJoystickCmd extends CommandBase {
       yAxis = 0;
     }
     else {
-      yAxis = 0.4*driver.getLeftY() + 0.6* Math.pow(driver.getLeftY(), 3);
+      yAxis = driver.getLeftY();
     }
 
     if (driver.getLeftX() < Constants.deadBand && driver.getLeftX() > Constants.deadBand*(-1.0)) {
       xAxis = 0;
     }
     else {
-      xAxis = 0.4*driver.getLeftX() + 0.6* Math.pow(driver.getLeftX(), 3);
+      xAxis = driver.getLeftX();
     }
   
 
