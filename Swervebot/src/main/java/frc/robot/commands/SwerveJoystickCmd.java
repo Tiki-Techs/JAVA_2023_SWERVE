@@ -70,7 +70,9 @@ public class SwerveJoystickCmd extends CommandBase {
     
     translation = new Translation2d(yAxis, xAxis).times(10);
     rotation =  driver.getRightX()* 0.33;
+    double pitch = swerve.getPitch();
     SmartDashboard.putNumber("ROTATIONNNNN", rotation);
+    SmartDashboard.putNumber("Pitch", pitch);
     swerve.drive(translation, rotation, fieldRelative);
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){
     //   swerve.zeroModules();

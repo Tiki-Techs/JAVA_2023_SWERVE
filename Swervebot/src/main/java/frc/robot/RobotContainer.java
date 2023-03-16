@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.Balance;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.ConeAuto;
 import frc.robot.commands.DefaultArm;
@@ -24,6 +25,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -42,8 +44,7 @@ public class RobotContainer {
   private final Command m_ComplexAuto = new ComplexAuto(m_Drivebase);
   private final Command m_shimSham = new shimSham(m_Drivebase, true);
   private final Command m_ConeAuto = new ConeAuto(m_Drivebase, m_Arm, m_Intake, false);
-
-
+  private final Command m_Balance = new Balance(m_Drivebase);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController m_driverController =
@@ -98,6 +99,7 @@ public class RobotContainer {
   new JoystickButton(m_mechController.getHID(), 2) // B button
   .onTrue(new InstantCommand(() -> m_Intake.retractIntake(), m_Intake));
 
+
   // new Trigger(m_mechController.getLeftTriggerAxis(), 4)
   // .onTrue(new InstantCommand(() -> m_Arm.setWristSpeed(10, true)));
 
@@ -109,6 +111,7 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
+    SmartDashboard.putBoolean("Hello", true);
     return m_SimpleAuto;
   }
 

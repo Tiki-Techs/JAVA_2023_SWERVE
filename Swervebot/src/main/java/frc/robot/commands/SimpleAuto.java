@@ -76,17 +76,17 @@ public class SimpleAuto extends CommandBase {
     Translation2d stop = new Translation2d(0.0,0.0);
 
     while (m_timer.get() < 0.8) {
-      arm.setShoulderSpeed(-0.5);
-      arm.setElbowSpeed(0.5);
+      arm.setShoulderSpeed(-0.3);
+      arm.setElbowSpeed(-0.3);
     }
     
     arm.setElbowSpeed(0);
     arm.setShoulderSpeed(0.0);
-
-    while (m_timer.get() < (1.0)) {
+    intake.extendIntake();
+    while (m_timer.get() < (7.0)) {
 
     }
-    while (m_timer.get() < 2.5) {
+    while (m_timer.get() < 9.0) {
         swerve.drive(translation, rotAxis, fieldRelative);
     }
     swerve.drive(stop, rotAxis, fieldRelative);
