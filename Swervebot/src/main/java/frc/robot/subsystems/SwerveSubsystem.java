@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -88,8 +87,6 @@ public class SwerveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("FrontR Angle: ", frontRight.getState().angle.getDegrees());
     SmartDashboard.putNumber("BackL Angle: ", backLeft.getState().angle.getDegrees());
     SmartDashboard.putNumber("BackR Angle: ", backRight.getState().angle.getDegrees());
-    SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-
   }
   public void stopModules(){
     frontLeft.stop();

@@ -3,15 +3,13 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycle;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.armConstants;
-import frc.robot.commands.ArmPosition;
+import frc.robot.commands.DefaultArm;
 
 public class Arm extends SubsystemBase{
     
@@ -24,13 +22,9 @@ public class Arm extends SubsystemBase{
     public static Encoder shoulderEncoder = new Encoder(armConstants.shoulderEncoder.getFirst(), armConstants.shoulderEncoder.getSecond());
     public static Encoder elbowEncoder = new Encoder(armConstants.elbowEncoder.getFirst(), armConstants.elbowEncoder.getSecond());
 
-    public PIDController elbowPID = new PIDController(.5, 0, 0.0);
-    public PIDController shoulderPID = new PIDController(0, 0, 0);
-
     public DigitalInput shoulderLimit = new DigitalInput(armConstants.shoulderLimitSwitch);
     public DigitalInput elbowLimit = new DigitalInput(armConstants.elbowLimitSwitch);
     
-    ArmPosition currentArmPosition;
 
     // setting motors to follow the leaders
     public Arm(){
@@ -61,28 +55,33 @@ public class Arm extends SubsystemBase{
 
     }
 
+    public void moveToPosition(double shoulderPos, double elbowPos){
     
-    public void resetEncoders(){
-        // if(!elbowLimit.get()){
-        //     elbowEncoder.reset();
-        // }
-        // if(!shoulderLimit.get()){
-        //     shoulderEncoder.reset();
-        // }
-    }
-
-    public void moveToPosition(ArmPosition pos){
-        boolean hold = false;
-        while(!hold) {
-          hold = currentArmPosition.moveToHold();
+        DefaultArm.setpoint = elbowPos;
+        while(elbowEncoder.getDistance() < elbowPos - 15 || elbowEncoder.getDistance() > elbowPos + 15){
+            setElbowSpeed(DefaultArm.elbowPID.calculate(Arm.elbowEncoder.getDistance(), DefaultArm.setpoint));
+            if(DefaultArm.elbowPID.calculate(Arm.elbowEncoder.getDistance(), DefaultArm.setpoint) < 0.05)
+            {
+                break;
+            }
         }
-        
-        boolean targetPos = false;
-        while(!targetPos) {
-          targetPos = pos.moveToPosition();
+        setElbowSpeed(0);
+        while(shoulderEncoder.getDistance() < shoulderPos - 15 || shoulderEncoder.getDistance() > shoulderPos + 15)
+        {
+            if(shoulderEncoder.getDistance() < shoulderPos) 
+            {
+                setShoulderSpeed(0.3);
+            }
+            else if (shoulderEncoder.getDistance() > shoulderPos){
+                 setShoulderSpeed(-0.3);
+            }
+            else{
+                setShoulderSpeed(0);
+                break;
+            }
         }
-
-        currentArmPosition = pos;
+        setShoulderSpeed(0.0);
+        CommandScheduler.getInstance().cancelAll();
       }
 
 
@@ -90,9 +89,19 @@ public class Arm extends SubsystemBase{
     public void periodic(){
         SmartDashboard.putNumber("shoulder encoder", shoulderEncoder.getDistance());
         SmartDashboard.putNumber("elbow encoder", elbowEncoder.getDistance());
-       SmartDashboard.putBoolean("shoulder limit switch", shoulderLimit.get());
+        SmartDashboard.putBoolean("shoulder limit switch", shoulderLimit.get());
         SmartDashboard.putBoolean("elbow limit switch", elbowLimit.get());
         SmartDashboard.putNumber("shoulder motor output", shoulderMotor1.getAppliedOutput());
+        
+        if(elbowLimit.get() == false)
+        {
+          elbowEncoder.reset();
+        } 
+        if(shoulderLimit.get() == false)
+        {
+          shoulderEncoder.reset();
+        } 
+
     }
 
 }

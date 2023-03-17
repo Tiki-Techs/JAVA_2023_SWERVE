@@ -129,7 +129,7 @@ public final class Constants {
   public static final class TurretConstants {
     //public static final int EncoderPort = 0;
     public static final int turnerMotor = 9;
-    public static final Pair<Integer, Integer> turretEncoder = new Pair<>(9, 8);
+    public static final Pair<Integer, Integer> turretEncoder = new Pair<>(5, 4);
   }
 
   public static final class armConstants {
@@ -139,15 +139,15 @@ public final class Constants {
     public static final int elbowMotor2 = 13;
     public static final int wristMotor = 14;
 
-    public static final Pair<Integer, Integer> shoulderEncoder = new Pair<>(7, 6);
-    public static final Pair<Integer, Integer> elbowEncoder = new Pair<>(5, 4);
+    public static final Pair<Integer, Integer> shoulderEncoder = new Pair<>(9, 8);
+    public static final Pair<Integer, Integer> elbowEncoder = new Pair<>(7, 6);
 
     // public static final int shoulderEncoder = 7;
     // public static final int elbowEncoder = 6;
     // public static final int wristEncoder = 2;
 
     public static final int elbowLimitSwitch = 22;
-    public static final int shoulderLimitSwitch = 23;
+        public static final int shoulderLimitSwitch = 21;
   
   }
 

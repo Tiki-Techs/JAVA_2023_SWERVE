@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivebaseConstants;
 public class Drivebase extends SubsystemBase {
@@ -51,21 +49,6 @@ public class Drivebase extends SubsystemBase {
 
   public void DoDrivingFR(double speed, double angle){
     drive.arcadeDrive(speed, angle);
-  }
-
-  @Override
-  public void periodic(){
-    SmartDashboard.putNumber("front right encoder pos",frSteerEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("front left encoder pos",flSteerEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("back right encoder pos",brSteerEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("back left encoder pos",blSteerEncoder.getAbsolutePosition());
-
-    //SmartDashboard.putNumber("PID Front Left FR", swervePID.calculate(FR_steer.getSelectedSensorPosition(), -4500));
-    //FR_steer.set(frPID.calculate(FR_steer.getSelectedSensorPosition(), 0));
-    //FL_steer.set(flPID.calculate(FL_steer.getSelectedSensorPosition(), 0));
-    //BR_steer.set(brPID.calculate(BR_steer.getSelectedSensorPosition(), 0));
-    //BL_steer.set(blPID.calculate(BL_steer.getSelectedSensorPosition(), 0));
-    //SmartDashboard.putNumber("BR Rotation", brRotEncoder.getAbsolutePosition());
   }
 
 }

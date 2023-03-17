@@ -1,15 +1,11 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Constants.chassisConstants;
-import frc.robot.subsystems.SwerveModule;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /** An example command that uses an example subsystem. */
@@ -66,6 +62,7 @@ public class SwerveJoystickCmd extends CommandBase {
   
   //  double yAxis = driver.getLeftY();
     //double xAxis = driver.getLeftX();
+    
     double rotAxis = -driver.getRightX();
     
     translation = new Translation2d(yAxis, xAxis).times(10);
@@ -74,6 +71,7 @@ public class SwerveJoystickCmd extends CommandBase {
     SmartDashboard.putNumber("ROTATIONNNNN", rotation);
     SmartDashboard.putNumber("Pitch", pitch);
     swerve.drive(translation, rotation, fieldRelative);
+
     // if(xAxis == 0 && yAxis == 0 && rotAxis == 0){
     //   swerve.zeroModules();
     //   swerve.stopModules();

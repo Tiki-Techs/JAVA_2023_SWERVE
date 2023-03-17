@@ -4,13 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DefaultArm;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Turret;
 
 /**
@@ -85,8 +83,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    Arm.shoulderEncoder.reset();
-    Arm.elbowEncoder.reset();
+    //Arm.shoulderEncoder.reset();
+    //Arm.elbowEncoder.reset();
+    DefaultArm.setpoint = Arm.elbowEncoder.getDistance();
     //RobotContainer.m_Drivebase.zeroModules();
     Turret.m_turretEncoder.reset();
   }

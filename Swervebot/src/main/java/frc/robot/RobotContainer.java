@@ -4,6 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Balance;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.ConeAuto;
@@ -13,25 +21,11 @@ import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.TurretTurner;
 import frc.robot.commands.WristTurner;
 import frc.robot.commands.shimSham;
-import frc.robot.commands.ArmPositions.HighScore;
-import frc.robot.commands.ArmPositions.Hold;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Wrist;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -44,7 +38,7 @@ public class RobotContainer {
   private final Command m_ComplexAuto = new ComplexAuto(m_Drivebase);
   private final Command m_shimSham = new shimSham(m_Drivebase, true);
   private final Command m_ConeAuto = new ConeAuto(m_Drivebase, m_Arm, m_Intake, false);
-  private final Command m_Balance = new Balance(m_Drivebase);
+  private final Command m_Balance = new Balance(m_Drivebase);  
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController m_driverController =
@@ -66,9 +60,7 @@ public class RobotContainer {
 
     m_Wrist.setDefaultCommand(new WristTurner(m_Wrist));
 
-    
-
-         configureBindings();
+    configureBindings();
   }
 
   /**
@@ -81,11 +73,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // new JoystickButton(m_mechController.getHID(), 1) //A button 
-    // .onTrue(new Hold());
-
-    // new JoystickButton(m_buttonBoard, 2)
-    // .onTrue(new RunCommand(() -> m_Arm.moveToPosition(new HighScore()), m_Arm)); 
 
   //new JoystickButton(m_mechController.getHID(), 5)
   //   .whileTrue(new RunCommand(() -> m_Turret.TurnTurret(10), m_Turret));
@@ -93,15 +80,18 @@ public class RobotContainer {
   //   new JoystickButton(m_mechController.getHID(),6)
   //   .whileTrue(new RunCommand(() -> m_Turret.TurnTurret(-10), m_Turret));
   
-  new JoystickButton(m_mechController.getHID(), 1) //  button
+  new JoystickButton(m_mechController.getHID(), 1) // A button
   .onTrue(new InstantCommand(() -> m_Intake.extendIntake(), m_Intake));
 
   new JoystickButton(m_mechController.getHID(), 2) // B button
   .onTrue(new InstantCommand(() -> m_Intake.retractIntake(), m_Intake));
 
-
-  // new Trigger(m_mechController.getLeftTriggerAxis(), 4)
-  // .onTrue(new InstantCommand(() -> m_Arm.setWristSpeed(10, true)));
+  m_mechController.povUp().onTrue(new InstantCommand(() -> m_Arm.moveToPosition(-1139, 709.25)));
+  m_mechController.povDown().onTrue(new InstantCommand(() -> m_Arm.moveToPosition(-1702, 1327.75)));
+  m_mechController.povLeft().onTrue(new InstantCommand(() -> m_Arm.moveToPosition(0, 0)));
+    
+  new JoystickButton(m_mechController.getHID(), 8) // start button
+  .onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
   // new JoystickButton(m_mechController.getHID(), 5)
   // .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, false), m_Wrist));
@@ -114,14 +104,5 @@ public class RobotContainer {
     SmartDashboard.putBoolean("Hello", true);
     return m_SimpleAuto;
   }
-
-//public void SimpleAuto () {
-  
-  // public Command getAutoCommand() {
-  //   return m_SimpleAutoCommand.getSimpleAuto();
-  // }
-
-
- 
   
 }
