@@ -8,6 +8,7 @@ public class ArmPositioner extends CommandBase {
     Arm m_Arm;
     double elbowPos;
     double shoulderPos;
+
     public ArmPositioner(Arm _arm, double _shoulderPos, double _elbowPos) {
         m_Arm = _arm;
         elbowPos = _elbowPos;
@@ -42,7 +43,7 @@ public class ArmPositioner extends CommandBase {
             return true;
         }
         if(DefaultArm.elbowPID.calculate(Arm.elbowEncoder.getDistance(), DefaultArm.setpoint) < 0.05
-        && (Arm.shoulderEncoder.getDistance() < shoulderPos - 15 && Arm.shoulderEncoder.getDistance() > shoulderPos + 15))
+        && (Arm.shoulderEncoder.getDistance() > shoulderPos - 15 && Arm.shoulderEncoder.getDistance() < shoulderPos + 15))
         {
             m_Arm.setShoulderSpeed(0);
             return true;
