@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -90,8 +91,9 @@ public class RobotContainer {
   m_mechController.povDown().onTrue(new InstantCommand(() -> m_Arm.moveToPosition(-1702, 1327.75)));
   m_mechController.povLeft().onTrue(new InstantCommand(() -> m_Arm.moveToPosition(0, 0)));
     
-  new JoystickButton(m_mechController.getHID(), 8) // start button
-  .onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
+  new JoystickButton(m_mechController.getHID(), 4) // y button
+  .onTrue(new ParallelCommandGroup(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()), 
+  new InstantCommand(() -> SmartDashboard.putBoolean("Cancelling", true))));
 
   // new JoystickButton(m_mechController.getHID(), 5)
   // .whileTrue(new RunCommand(() -> m_Wrist.setWristSpeed(.2, false), m_Wrist));
@@ -101,7 +103,6 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    SmartDashboard.putBoolean("Hello", true);
     return m_SimpleAuto;
   }
   
